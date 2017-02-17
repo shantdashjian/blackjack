@@ -1,5 +1,8 @@
 package cards;
 
 public enum Suit {
-	HEARTS, SPADES, CLUBS, DIAMONDS
+	HEARTS,
+	SPADES,
+	CLUBS,
+	DIAMONDS
 }
