@@ -17,14 +17,14 @@ public class Dealer extends PersonImpl {
 		return dealerAction;
 	}
 	public boolean mustHit() {
-		if (getHand().getTotalOfHand() <= 16){
+		if (getHand().getTotal() <= 16){
 			return true;
 		}
 		return false;
 	}
 
 	public boolean mustStand() {
-		if (getHand().getTotalOfHand() >= 17 && getHand().getTotalOfHand() <= 21){
+		if (getHand().getTotal() >= 17 && getHand().getTotal() <= 21){
 			return true;
 		}
 		return false;

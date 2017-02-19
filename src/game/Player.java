@@ -12,12 +12,10 @@ public class Player extends PersonImpl {
 		super(name, wallet);
 		// TODO Auto-generated constructor stub
 	}
-
-
 	public boolean placeWager(double wager) {
 		if (wager <= getWallet()) {
 			this.wager = wager;
-			setWallet(getWager() - wager);
+			setWallet(getWallet() - wager);
 			return true;
 		}
 		return false;

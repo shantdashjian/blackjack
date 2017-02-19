@@ -33,7 +33,7 @@ public class HandImplTests {
 		Card card = new CardImpl(Rank.ACE, Suit.CLUBS);
 		hand.addCardAndChangeHandtoHardIfNeeded(card);
 		int expectedOutcome = 1;
-		assertEquals(expectedOutcome, hand.getCardsInHand().size());
+		assertEquals(expectedOutcome, hand.getCards().size());
 	}
 	@Test
 	public void test_addCard_should_increase_cards_by_2() {
@@ -42,7 +42,7 @@ public class HandImplTests {
 		hand.addCardAndChangeHandtoHardIfNeeded(card1);
 		hand.addCardAndChangeHandtoHardIfNeeded(card2);
 		int expectedOutcome = 2;
-		assertEquals(expectedOutcome, hand.getCardsInHand().size());
+		assertEquals(expectedOutcome, hand.getCards().size());
 	}
 	@Test
 	public void test_getTotalOfHand_adds_2_and_8_should_return_10() {
@@ -50,8 +50,8 @@ public class HandImplTests {
 		Card card2 = new CardImpl(Rank.EIGHT, Suit.DIAMONDS);
 		hand.addCardAndChangeHandtoHardIfNeeded(card1);
 		hand.addCardAndChangeHandtoHardIfNeeded(card2);
-		int expectedOutcome = 10;
-		assertEquals(expectedOutcome, hand.getTotalOfHand());
+		Integer expectedOutcome = 10;
+		assertEquals(expectedOutcome, hand.getTotal());
 	}
 	@Test
 	public void test_getCardsInHand_adds_2_clubs_and_8_diamonds_should_return_both() {
@@ -62,7 +62,7 @@ public class HandImplTests {
 		List<Card> expectedOutcome = new ArrayList<>();
 		expectedOutcome.add(0, card1);
 		expectedOutcome.add(0, card2);
-		assertEquals(expectedOutcome, hand.getCardsInHand());
+		assertEquals(expectedOutcome, hand.getCards());
 	}
 	@Test
 	public void test_revealFaceDownCards_should_show_all_cards_face_up(){
@@ -73,7 +73,7 @@ public class HandImplTests {
 		hand.addCardAndChangeHandtoHardIfNeeded(card2);
 		hand.revealFaceDownCards();
 		boolean expectedOutcome = true;
-		assertEquals(expectedOutcome,hand.getCardsInHand().get(0).faceUp());
+		assertEquals(expectedOutcome,hand.getCards().get(0).faceUp());
 	}
 	@Test
 	public void test_compareTo_give_player_stronger_hand_should_return_1(){

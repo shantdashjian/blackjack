@@ -3,7 +3,7 @@ package cards;
 public interface CardGraphics {
 	public static String[][] cardTemplates = {
 			   {" --------- ",
-				"|2        |",
+				"| 2       |",
 				"|    X    |",
 				"|         |",
 				"|         |",
@@ -11,10 +11,10 @@ public interface CardGraphics {
 				"|         |",
 				"|         |",
 				"|    X    |",
-				"|        2|",
+				"|       2 |",
 				" --------- "},
 			   {" --------- ",
-				"|3        |",
+				"| 3       |",
 				"|    X    |",
 				"|         |",
 				"|         |",
@@ -22,10 +22,10 @@ public interface CardGraphics {
 				"|         |",
 				"|         |",
 				"|    X    |",
-		  	    "|        3|",
+		  	    "|       3 |",
 				" --------- "},
 			   {" --------- ",
-				"|4        |",
+				"| 4       |",
 				"|  X   X  |",
 				"|         |",
 				"|         |",
@@ -33,10 +33,10 @@ public interface CardGraphics {
 				"|         |",
 				"|         |",
 				"|  X   X  |",
-			    "|        4|",
+			    "|       4 |",
 			    " --------- "},
 			   {" --------- ",
-			    "|5        |",
+			    "| 5       |",
 			   	"|  X   X  |",
 			   	"|         |",
 			   	"|         |",
@@ -44,10 +44,10 @@ public interface CardGraphics {
 			   	"|         |",
 			   	"|         |",
 			   	"|  X   X  |",
-			    "|        5|",
+			    "|       5 |",
 			    " --------- "},
 			   {" --------- ",
-			    "|6        |",
+			    "| 6       |",
 				"|  X   X  |",
 				"|         |",
 			    "|         |",
@@ -55,10 +55,10 @@ public interface CardGraphics {
 			    "|         |",
 			    "|         |",
 			    "|  X   X  |",
-			    "|        6|",
+			    "|       6 |",
 			    " --------- "},
 			   {" --------- ",
-			    "|7        |",
+			    "| 7       |",
 				"|  X   X  |",
 				"|    X    |",
 				"|         |",
@@ -66,10 +66,10 @@ public interface CardGraphics {
 				"|         |",
 				"|         |",
 				"|  X   X  |",
-			    "|        7|",
+			    "|       7 |",
 			    " --------- "},
 			   {" --------- ",
-			    "|8        |",
+			    "| 8       |",
 				"|  X   X  |",
 				"|    X    |",
 				"|         |",
@@ -77,10 +77,10 @@ public interface CardGraphics {
 				"|         |",
 				"|    X    |",
 				"|  X   X  |",
-			    "|        8|",
+			    "|       8 |",
 			    " --------- "},
 			   {" --------- ",
-			    "|9        |",
+			    "| 9       |",
 				"|  X   X  |",
 				"|         |",
 				"|  X   X  |",
@@ -88,7 +88,7 @@ public interface CardGraphics {
 				"|  X   X  |",
 				"|         |",
 				"|  X   X  |",
-			    "|        9|",
+			    "|       9 |",
 			    " --------- "},
 			   {" --------- ",
 			    "|10       |",
@@ -101,8 +101,8 @@ public interface CardGraphics {
 				"|  X   X  |",
 			    "|       10|",
 			    " --------- "},
-			   {" ------- ",
-			    "|J        |",
+			   {" -------- ",
+			    "| J       |",
 			    "|  X      |",
 			    "|         |",
 			    "|         |",
@@ -110,10 +110,10 @@ public interface CardGraphics {
 			    "|         |",
 			    "|         |",
 			    "|      X  |",
-			    "|        J|",
+			    "|       J |",
 			    " --------- "},
 			   {" --------- ",
-			    "|Q        |",
+			    "| Q       |",
 				"|  X      |",
 				"|         |",
 				"|         |",
@@ -121,10 +121,10 @@ public interface CardGraphics {
 				"|         |",
 				"|         |",
 				"|      X  |",
-				"|        Q|",
+				"|       Q |",
 				" --------- "},
 			   {" --------- ",
-				"|K        |",
+				"| K       |",
 				"|  X      |",
 				"|         |",
 				"|         |",
@@ -132,10 +132,10 @@ public interface CardGraphics {
 				"|         |",
 				"|         |",
 				"|      X  |",
-				"|        K|",
+				"|       K |",
 				" --------- "},
 			   {" --------- ",
-				"|A        |",
+				"| A       |",
 				"|         |",
 				"|         |",
 				"|         |",
@@ -143,7 +143,7 @@ public interface CardGraphics {
 				"|         |",
 				"|         |",
 				"|         |",
-				"|        A|",
+				"|       A |",
 				" --------- "},
 			   {" --------- ",
 				"|*********|",
@@ -157,4 +157,23 @@ public interface CardGraphics {
 				"|*********|",
 				" --------- "}
 			};
+
+	public static String toASCII(Suit suit) {
+		String suitSymbol = "";
+		switch (suit) {
+		case SPADES:
+			suitSymbol = "\u2660";
+			break;
+		case DIAMONDS:
+			suitSymbol = "\u2666";
+			break;
+		case CLUBS:
+			suitSymbol = "\u2663";
+			break;
+		case HEARTS:
+			suitSymbol = "\u2664";
+			break;
+		}
+		return suitSymbol;
+	}
 }

@@ -41,7 +41,6 @@ public interface InputHelper {
 	 * @return String
 	 */
 	static String getString(String prompt) {
-		//kb.nextLine();
 		System.out.print(prompt);
 		return kb.next();
 	}

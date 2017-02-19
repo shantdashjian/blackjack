@@ -5,15 +5,12 @@ import java.util.List;
 
 import cards.Card;
 import cards.CardGraphics;
-import cards.Suit;
 
 public class HandImpl implements Hand {
 	private List<Card> cards;
-	Integer total;
 
 	public HandImpl() {
 		cards = new ArrayList<>();
-		total = 0;
 	}
 
 	public HandImpl(List<Card> cards) {
@@ -24,19 +21,22 @@ public class HandImpl implements Hand {
 	@Override
 	public void addCardAndChangeHandtoHardIfNeeded(Card card) {
 		cards.add(0, card);
-		total += card.getValue();
-		if (total > 21 & softHand()) {
+		if (getTotal() > 21 & softHand()) {
 			changeHandToHard();
 		}
 	}
 
 	@Override
-	public List<Card> getCardsInHand() {
+	public List<Card> getCards() {
 		return cards;
 	}
 
 	@Override
-	public int getTotalOfHand() {
+	public Integer getTotal() {
+		Integer total = 0;
+		for (Card card : cards) {
+			total += card.getValue();
+		}
 		return total;
 	}
 
@@ -46,16 +46,6 @@ public class HandImpl implements Hand {
 				card.setValue(1);
 			}
 		}
-		updateTotal();
-
-	}
-
-	public void updateTotal() {
-		total = 0;
-		for (Card card : cards) {
-			total += card.getValue();
-		}
-
 	}
 
 	public boolean softHand() {
@@ -65,25 +55,6 @@ public class HandImpl implements Hand {
 			}
 		}
 		return false;
-	}
-
-	public String toASCII(Suit suit) {
-		String suitSymbol = "";
-		switch (suit) {
-		case SPADES:
-			suitSymbol = "\u2660";
-			break;
-		case DIAMONDS:
-			suitSymbol = "\u2666";
-			break;
-		case CLUBS:
-			suitSymbol = "\u2663";
-			break;
-		case HEARTS:
-			suitSymbol = "\u2664";
-			break;
-		}
-		return suitSymbol;
 	}
 
 	@Override
@@ -97,7 +68,7 @@ public class HandImpl implements Hand {
 				if (card.faceUp()) {
 
 					String rowString = CardGraphics.cardTemplates[card.getRank().ordinal()][row].replaceAll("X",
-							toASCII(card.getSuit()));
+							CardGraphics.toASCII(card.getSuit()));
 
 					handStringBuilder.append(rowString);
 
@@ -116,11 +87,10 @@ public class HandImpl implements Hand {
 		for (Card card : cards) {
 			card.reveal();
 		}
-
 	}
 
 	@Override
 	public int compareTo(Hand otherHand) {
-		return this.total.compareTo(otherHand.getTotalOfHand());
+		return this.getTotal().compareTo(otherHand.getTotal());
 	}
 }

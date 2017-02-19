@@ -28,7 +28,7 @@ public class BlackjackGameTests {
 		blackjackGameackGame.deal(blackjackGameackGame.getPlayer(), Facing.UP);
 		int expectedOutcome = 1;
 		assertEquals(expectedOutcome,
-				blackjackGameackGame.getPlayer().getHand().getCardsInHand().size());
+				blackjackGameackGame.getPlayer().getHand().getCards().size());
 	}
 
 	@Test

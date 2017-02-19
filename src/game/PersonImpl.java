@@ -93,7 +93,7 @@ public abstract class PersonImpl implements Person {
 
 	@Override
 	public boolean blackjack() {
-		if (hand.getTotalOfHand() == 21) {
+		if (hand.getTotal() == 21) {
 			return true;
 		}
 		return false;
@@ -101,7 +101,7 @@ public abstract class PersonImpl implements Person {
 
 	@Override
 	public boolean bust() {
-		if (hand.getTotalOfHand() > 21) {
+		if (hand.getTotal() > 21) {
 			return true;
 		}
 		return false;

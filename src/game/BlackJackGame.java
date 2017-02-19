@@ -84,10 +84,9 @@ public class BlackjackGame {
 
 	public BlackjackGame(String[] args) {
 		this();
-		if (args.length == 3) {
+		if (args.length == 2) {
 			minBet = Double.parseDouble(args[0]);
-			player.setName(args[1]);
-			player.setWallet(Double.parseDouble(args[2]));
+			player.setWallet(Double.parseDouble(args[1]));
 		}
 
 	}
@@ -103,18 +102,9 @@ public class BlackjackGame {
 	}
 
 	public void welcomePlayer() {
-		System.out.println("Welcome to SD Blackjack:");
-		System.out.println("************************");
-		// do {
-		// player.setWallet(InputHelper.getDouble(
-		// "Minimum bet on this table is " + minBet + ". Enter the total value
-		// of your chips (0 to exit): "));
-		// if (player.getWallet() <= 0) {
-		// System.out.println("Please visit us again, " + player.getName() +
-		// "!");
-		// System.exit(0);
-		// }
-		// } while (player.getWallet() < minBet);
+		System.out.println("***************************");
+		System.out.println("* Welcome to SD Blackjack *");
+		System.out.println("***************************");
 	}
 
 	public void playerPlacesWager() {

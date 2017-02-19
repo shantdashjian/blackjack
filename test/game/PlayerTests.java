@@ -85,7 +85,7 @@ public class PlayerTests {
 		player.hit(new CardImpl(Rank.ACE, Suit.SPADES));
 		int expectedOutcome = 3;
 		assertEquals(expectedOutcome,
-				player.getHand().getCardsInHand().size());
+				player.getHand().getCards().size());
 	}
 	@Test
 	public void test_stand_should_return_2() {
@@ -96,7 +96,7 @@ public class PlayerTests {
 		player.stand();
 		int expectedOutcome = 2;
 		assertEquals(expectedOutcome,
-				player.getHand().getCardsInHand().size());
+				player.getHand().getCards().size());
 	}
 	@Test
 	public void test_placeWager_has_wallet_1000_places_wager_200_should_return_true(){
@@ -113,5 +113,23 @@ public class PlayerTests {
 		boolean expectedOutcome = false;
 		assertEquals(expectedOutcome,
 				((Player)player).placeWager(wager));
+	}
+	@Test
+	public void test_placeWager_has_wallet_1000_places_wager_200_should_show_800_in_wallet(){
+		player.setWallet(1000);
+		double wager = 200;
+		double expectedOutcome = 800;
+		double delta = 0.01;
+		((Player)player).placeWager(wager);
+		assertEquals(expectedOutcome, player.getWallet(), delta);
+	}
+	@Test
+	public void test_placeWager_has_wallet_12000_places_wager_100_should_show_11900_in_wallet(){
+		player.setWallet(12000);
+		double wager = 100;
+		double expectedOutcome = 11900;
+		double delta = 0.01;
+		((Player)player).placeWager(wager);
+		assertEquals(expectedOutcome, player.getWallet(), delta);
 	}
 }
