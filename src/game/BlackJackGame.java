@@ -4,7 +4,7 @@ import cards.Deck;
 import cards.DeckImpl;
 import cards.Facing;
 
-public class BlackJackGame {
+public class BlackjackGame {
 	private Person dealer;
 	private Person player;
 	private Deck deck;
@@ -71,18 +71,18 @@ public class BlackJackGame {
 	}
 
 	public static void main(String[] args) {
-		BlackJackGame blackJackGame = new BlackJackGame(args);
+		BlackjackGame blackJackGame = new BlackjackGame(args);
 		blackJackGame.start();
 	}
 
-	public BlackJackGame() {
+	public BlackjackGame() {
 		dealer = new Dealer("Dealer", 1000000);
 		player = new Player("Player", 1000);
 		deck = new DeckImpl();
 		minBet = 50;
 	}
 
-	public BlackJackGame(String[] args) {
+	public BlackjackGame(String[] args) {
 		this();
 		if (args.length == 3) {
 			minBet = Double.parseDouble(args[0]);
