@@ -8,19 +8,26 @@ import cards.CardGraphics;
 import cards.Suit;
 
 public class HandImpl implements Hand {
-	List<Card> cards;
+	private List<Card> cards;
+	Integer total;
 
 	public HandImpl() {
 		cards = new ArrayList<>();
+		total = 0;
 	}
 
 	public HandImpl(List<Card> cards) {
+		this();
 		this.cards = cards;
 	}
 
 	@Override
-	public void addCard(Card card) {
+	public void addCardAndChangeHandtoHardIfNeeded(Card card) {
 		cards.add(0, card);
+		total += card.getValue();
+		if (total > 21 & softHand()) {
+			changeHandToHard();
+		}
 	}
 
 	@Override
@@ -30,14 +37,6 @@ public class HandImpl implements Hand {
 
 	@Override
 	public int getTotalOfHand() {
-		int total = 0;
-		for (Card card : cards) {
-			total += card.getValue();
-		}
-		if (total > 21 & softHand()) {
-			total -= 10;
-			changeHandToHard();
-		}
 		return total;
 	}
 
@@ -46,6 +45,15 @@ public class HandImpl implements Hand {
 			if (card.isAnAce() && card.getValue() == 11) {
 				card.setValue(1);
 			}
+		}
+		updateTotal();
+
+	}
+
+	public void updateTotal() {
+		total = 0;
+		for (Card card : cards) {
+			total += card.getValue();
 		}
 
 	}
@@ -109,5 +117,10 @@ public class HandImpl implements Hand {
 			card.reveal();
 		}
 
+	}
+
+	@Override
+	public int compareTo(Hand otherHand) {
+		return this.total.compareTo(otherHand.getTotalOfHand());
 	}
 }

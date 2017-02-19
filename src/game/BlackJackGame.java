@@ -99,6 +99,7 @@ public class BlackJackGame {
 		endGameIfEitherGotBlackjack();
 		playerTurn();
 		dealerTurn();
+		compareHandsAndDeclareResult();
 	}
 
 	public void welcomePlayer() {
@@ -165,7 +166,7 @@ public class BlackJackGame {
 		}
 	}
 
-	public boolean oneOrBothGotBlackJack(){
+	public boolean oneOrBothGotBlackJack() {
 		if (player.blackjack() && !dealer.blackjack()) {
 			System.out.println("BLACKJACK!!!! You win!");
 			player.setWallet(player.getWallet() + ((Player) player).getWager() * 1.5);
@@ -208,6 +209,39 @@ public class BlackJackGame {
 		System.out.println("Dealer's turn");
 		dealer.getHand().revealFaceDownCards();
 		displayTable();
+		String dealerAction = "";
+		do {
+			do {
+				dealerAction = ((Dealer) dealer).getDealerAction();
+			} while (!dealerAction.equals("H") && !dealerAction.equals("S"));
+
+			if (dealerAction.equals("H")) {
+				deal(dealer, Facing.UP);
+				displayTable();
+				if (dealer.bust()) {
+					System.out.println("Dealer busts! You win");
+					System.exit(0);
+				}
+			}
+
+		} while (!dealerAction.equals("S"));
+
 	}
 
+	private void compareHandsAndDeclareResult() {
+		switch (player.getHand().compareTo(dealer.getHand())) {
+		case 1:
+			System.out.println("You win!!");
+			break;
+		case -1:
+			System.out.println("The house wins!!");
+			break;
+		case 0:
+			System.out.println("It's a tie!!");
+			break;
+		default:
+			break;
+		}
+
+	}
 }

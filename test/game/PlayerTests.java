@@ -27,48 +27,61 @@ public class PlayerTests {
 
 	@Test
 	public void test_blackjack_adds_ace_diamons_and_jack_clubs_should_return_true() {
-		List<Card> cards = new ArrayList<>();
-		cards.add(new CardImpl(Rank.ACE, Suit.DIAMONDS));
-		cards.add(new CardImpl(Rank.JACK, Suit.CLUBS));
-		player.setHand(new HandImpl(cards));
+		Hand hand = new HandImpl();
+		hand.addCardAndChangeHandtoHardIfNeeded(
+				new CardImpl(Rank.ACE, Suit.DIAMONDS));
+		hand.addCardAndChangeHandtoHardIfNeeded(
+				new CardImpl(Rank.JACK, Suit.CLUBS));
+		player.setHand(hand);
 		boolean expectedOutcome = true;
 		assertEquals(expectedOutcome, player.blackjack());
 	}
 	@Test
 	public void test_blackjack_adds_7_diamons_and_jack_clubs_should_return_false() {
-		List<Card> cards = new ArrayList<>();
-		cards.add(new CardImpl(Rank.SEVEN, Suit.DIAMONDS));
-		cards.add(new CardImpl(Rank.JACK, Suit.CLUBS));
-		player.setHand(new HandImpl(cards));
+		Hand hand = new HandImpl();
+		hand.addCardAndChangeHandtoHardIfNeeded(
+				new CardImpl(Rank.SEVEN, Suit.DIAMONDS));
+		hand.addCardAndChangeHandtoHardIfNeeded(
+				new CardImpl(Rank.JACK, Suit.CLUBS));
+		player.setHand(hand);
 		boolean expectedOutcome = false;
 		assertEquals(expectedOutcome, player.blackjack());
 	}
 	@Test
 	public void test_bust_adds_jack_diamons_and_7_clubs_and_3_spades_should_return_false() {
-		List<Card> cards = new ArrayList<>();
-		cards.add(new CardImpl(Rank.JACK, Suit.DIAMONDS));
-		cards.add(new CardImpl(Rank.SEVEN, Suit.CLUBS));
-		player.setHand(new HandImpl(cards));
-		player.hit(new CardImpl(Rank.THREE, Suit.SPADES));
+		Hand hand = new HandImpl();
+		hand.addCardAndChangeHandtoHardIfNeeded(
+				new CardImpl(Rank.JACK, Suit.DIAMONDS));
+		hand.addCardAndChangeHandtoHardIfNeeded(
+				new CardImpl(Rank.SEVEN, Suit.CLUBS));
+		player.setHand(hand);
+		player.hit(
+				new CardImpl(Rank.THREE, Suit.SPADES));
 		boolean expectedOutcome = false;
 		assertEquals(expectedOutcome, player.bust());
 	}
 	@Test
 	public void test_bust_adds_jack_diamons_and_7_clubs_and_8_spades_should_return_true() {
-		List<Card> cards = new ArrayList<>();
-		cards.add(new CardImpl(Rank.JACK, Suit.DIAMONDS));
-		cards.add(new CardImpl(Rank.SEVEN, Suit.CLUBS));
-		cards.add(new CardImpl(Rank.EIGHT, Suit.SPADES));
-		player.setHand(new HandImpl(cards));
+		Hand hand = new HandImpl();
+		hand.addCardAndChangeHandtoHardIfNeeded(
+				new CardImpl(Rank.JACK, Suit.DIAMONDS));
+		hand.addCardAndChangeHandtoHardIfNeeded(
+				new CardImpl(Rank.SEVEN, Suit.CLUBS));
+		player.setHand(hand);
+		player.hit(
+				new CardImpl(Rank.EIGHT, Suit.SPADES));
+
 		boolean expectedOutcome = true;
 		assertEquals(expectedOutcome, player.bust());
 	}
 	@Test
 	public void test_hit_adds_card_should_return_3(){
-		List<Card> cards = new ArrayList<>();
-		cards.add(new CardImpl(Rank.JACK, Suit.DIAMONDS));
-		cards.add(new CardImpl(Rank.SEVEN, Suit.CLUBS));
-		player.setHand(new HandImpl(cards));
+		Hand hand = new HandImpl();
+		hand.addCardAndChangeHandtoHardIfNeeded(
+				new CardImpl(Rank.JACK, Suit.DIAMONDS));
+		hand.addCardAndChangeHandtoHardIfNeeded(
+				new CardImpl(Rank.SEVEN, Suit.CLUBS));
+		player.setHand(hand);
 		player.hit(new CardImpl(Rank.ACE, Suit.SPADES));
 		int expectedOutcome = 3;
 		assertEquals(expectedOutcome,

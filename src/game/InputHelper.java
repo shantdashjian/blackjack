@@ -41,13 +41,9 @@ public interface InputHelper {
 	 * @return String
 	 */
 	static String getString(String prompt) {
-		kb.nextLine();
+		//kb.nextLine();
 		System.out.print(prompt);
-		while (!kb.hasNextLine()) {
-			System.out.print(prompt);
-			kb.nextLine();
-		}
-		return kb.nextLine();
+		return kb.next();
 	}
 
 }

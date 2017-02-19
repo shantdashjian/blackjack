@@ -63,9 +63,6 @@ public abstract class PersonImpl implements Person {
 		this.wallet = wallet;
 	}
 
-
-
-
 	/**
 	 * @return the hand
 	 */
@@ -85,7 +82,7 @@ public abstract class PersonImpl implements Person {
 
 	@Override
 	public void hit(Card card) {
-		hand.addCard(card);
+		hand.addCardAndChangeHandtoHardIfNeeded(card);
 	}
 
 	@Override
@@ -104,10 +101,10 @@ public abstract class PersonImpl implements Person {
 
 	@Override
 	public boolean bust() {
-if (hand.getTotalOfHand() > 21) {
-	return true;
-}
-return false;
+		if (hand.getTotalOfHand() > 21) {
+			return true;
+		}
+		return false;
 	}
 
 }
