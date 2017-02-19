@@ -7,4 +7,7 @@ public interface Card {
 	void setFace(Facing facing);
 	Rank getRank();
 	Suit getSuit();
+	boolean isAnAce();
+	void setValue(int i);
+	void reveal();
 }

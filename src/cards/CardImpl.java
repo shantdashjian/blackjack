@@ -34,6 +34,7 @@ public class CardImpl implements Card {
 	 * @param value
 	 *            the value to set
 	 */
+	@Override
 	public void setValue(int value) {
 		this.value = value;
 	}
@@ -109,6 +110,17 @@ public class CardImpl implements Card {
 	@Override
 	public void setFace(Facing facing) {
 		this.facing = facing;
+
+	}
+
+	@Override
+	public boolean isAnAce() {
+		return getRank() == Rank.ACE;
+	}
+
+	@Override
+	public void reveal() {
+		setFace(Facing.UP);
 
 	}
 

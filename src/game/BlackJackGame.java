@@ -18,7 +18,8 @@ public class BlackJackGame {
 	}
 
 	/**
-	 * @param dealer the dealer to set
+	 * @param dealer
+	 *            the dealer to set
 	 */
 	public void setDealer(Person dealer) {
 		this.dealer = dealer;
@@ -32,7 +33,8 @@ public class BlackJackGame {
 	}
 
 	/**
-	 * @param player the player to set
+	 * @param player
+	 *            the player to set
 	 */
 	public void setPlayer(Person player) {
 		this.player = player;
@@ -46,7 +48,8 @@ public class BlackJackGame {
 	}
 
 	/**
-	 * @param deck the deck to set
+	 * @param deck
+	 *            the deck to set
 	 */
 	public void setDeck(Deck deck) {
 		this.deck = deck;
@@ -60,7 +63,8 @@ public class BlackJackGame {
 	}
 
 	/**
-	 * @param minBet the minBet to set
+	 * @param minBet
+	 *            the minBet to set
 	 */
 	public void setMinBet(double minBet) {
 		this.minBet = minBet;
@@ -71,88 +75,139 @@ public class BlackJackGame {
 		blackJackGame.start();
 	}
 
-	public BlackJackGame(){
-		dealer = new Dealer("Jim", 1000000);
-		player = new Player();
+	public BlackJackGame() {
+		dealer = new Dealer("Dealer", 1000000);
+		player = new Player("Player", 1000);
 		deck = new DeckImpl();
-		minBet = 200;
+		minBet = 50;
 	}
-	public BlackJackGame(String[] args){
+
+	public BlackJackGame(String[] args) {
 		this();
 		if (args.length == 3) {
-			String dealerName = args[0];
-			double dealerWallet =Double.parseDouble(args[1]);
-			dealer.setName(dealerName);
-			dealer.setWallet(dealerWallet);
-			minBet = Double.parseDouble(args[2]);
+			minBet = Double.parseDouble(args[0]);
+			player.setName(args[1]);
+			player.setWallet(Double.parseDouble(args[2]));
 		}
 
 	}
+
 	public void start() {
-		welcomePlayerAndCollectInformation();
+		welcomePlayer();
 		playerPlacesWager();
 		dealPlayerAndDealer();
+		endGameIfEitherGotBlackjack();
 		playerTurn();
 		dealerTurn();
-
 	}
 
-	public void dealerTurn() {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void playerTurn() {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void dealPlayerAndDealer() {
-		deal(player, Facing.UP);
-		dealer.getHand().display(dealer.getName());
-		player.getHand().display(player.getName());
-		deal(dealer, Facing.DOWN);
-		dealer.getHand().display(dealer.getName());
-		player.getHand().display(player.getName());
-		deal(player, Facing.UP);
-		dealer.getHand().display(dealer.getName());
-		player.getHand().display(player.getName());
-		deal(dealer, Facing.UP);
-		dealer.getHand().display(dealer.getName());
-		player.getHand().display(player.getName());
-
+	public void welcomePlayer() {
+		System.out.println("Welcome to SD Blackjack:");
+		System.out.println("************************");
+		// do {
+		// player.setWallet(InputHelper.getDouble(
+		// "Minimum bet on this table is " + minBet + ". Enter the total value
+		// of your chips (0 to exit): "));
+		// if (player.getWallet() <= 0) {
+		// System.out.println("Please visit us again, " + player.getName() +
+		// "!");
+		// System.exit(0);
+		// }
+		// } while (player.getWallet() < minBet);
 	}
 
 	public void playerPlacesWager() {
 		do {
-			((Player)player).placeWager(InputHelper.getDouble(
-					"Minimum bet is " + minBet +
-					". How much would you like to bet (0 to exit)?"));
-			if (((Player)player).getWager() <= 0) {
-				System.out.println("Please visit us again, " + player.getName() + "!");
+			((Player) player).placeWager(InputHelper
+					.getDouble("Minimum bet is $" + minBet + ". How much would you like to bet (0 to exit)? "));
+			if (((Player) player).getWager() <= 0) {
+				System.out.println("Please visit us again!");
 				System.exit(0);
 			}
-		} while (((Player)player).getWager() < minBet);
+		} while (((Player) player).getWager() < minBet);
 	}
 
-	public void welcomePlayerAndCollectInformation() {
-		System.out.println("Welcome to SD Blackjack:");
-		System.out.println("************************");
-		player.setName(InputHelper.getString("What is your name? "));
-		System.out.println("Welcome, " + player.getName());
+	public void dealPlayerAndDealer() {
+		deal(player, Facing.UP);
+		displayTable();
+
+		deal(dealer, Facing.DOWN);
+		displayTable();
+
+		deal(player, Facing.UP);
+		displayTable();
+
+		deal(dealer, Facing.UP);
+		displayTable();
+
+	}
+
+	public void displayTable() {
+		try {
+			System.out.println(dealer.getHand().display(dealer.getName()));
+			Thread.sleep(100);
+			System.out.println(player.getHand().display(player.getName()));
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	public void deal(Person person, Facing facing) {
+		person.hit(deck.dealCard(facing));
+
+	}
+
+	public void endGameIfEitherGotBlackjack() {
+		if (oneOrBothGotBlackJack()) {
+			System.exit(0);
+		}
+	}
+
+	public boolean oneOrBothGotBlackJack(){
+		if (player.blackjack() && !dealer.blackjack()) {
+			System.out.println("BLACKJACK!!!! You win!");
+			player.setWallet(player.getWallet() + ((Player) player).getWager() * 1.5);
+			return true;
+		}
+		if (dealer.blackjack() && !player.blackjack()) {
+			System.out.println("The house wins!");
+			player.setWallet(player.getWallet() - ((Player) player).getWager());
+			dealer.setWallet(dealer.getWallet() + ((Player) player).getWager());
+			return true;
+		}
+		if (dealer.blackjack() && player.blackjack()) {
+			System.out.println("It's a TIE!");
+			player.setWallet(player.getWallet() + ((Player) player).getWager());
+			return true;
+		}
+		return false;
+	}
+
+	public void playerTurn() {
+		String playerDecision;
 		do {
-			player.setWallet(InputHelper.getDouble(
-					"Minimum bet on this table is " + minBet +
-					". Enter the total value of your chips (0 to exit): "));
-			if (player.getWallet() <= 0) {
-				System.out.println("Please visit us again, " + player.getName() + "!");
-				System.exit(0);
-			}
-		} while (player.getWallet() < minBet);
-	}
-	public void deal(Person person, Facing facing){
-		player.hit(deck.dealCard(facing));
+			do {
+				playerDecision = (InputHelper.getString("Hit or Stand? (Enter H or S) ")).toUpperCase();
+			} while (!playerDecision.equals("H") && !playerDecision.equals("S"));
 
+			if (playerDecision.equals("H")) {
+				deal(player, Facing.UP);
+				displayTable();
+				if (player.bust()) {
+					System.out.println("BUST!! Good luck next time!");
+					System.exit(0);
+				}
+			}
+
+		} while (!playerDecision.equals("S"));
+	}
+
+	public void dealerTurn() {
+		System.out.println("Dealer's turn");
+		dealer.getHand().revealFaceDownCards();
+		displayTable();
 	}
 
 }

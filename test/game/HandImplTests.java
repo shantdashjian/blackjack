@@ -59,8 +59,8 @@ public class HandImplTests {
 		hand.addCard(card1);
 		hand.addCard(card2);
 		List<Card> expectedOutcome = new ArrayList<>();
-		expectedOutcome.add(card1);
-		expectedOutcome.add(card2);
+		expectedOutcome.add(0, card1);
+		expectedOutcome.add(0, card2);
 		assertEquals(expectedOutcome, hand.getCardsInHand());
 	}
 

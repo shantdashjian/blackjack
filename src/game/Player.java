@@ -17,6 +17,7 @@ public class Player extends PersonImpl {
 	public boolean placeWager(double wager) {
 		if (wager <= getWallet()) {
 			this.wager = wager;
+			setWallet(getWager() - wager);
 			return true;
 		}
 		return false;

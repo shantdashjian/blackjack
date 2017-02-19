@@ -10,4 +10,5 @@ public interface Hand {
 	List<Card> getCardsInHand();
 	int getTotalOfHand();
 	String display(String personName);
+	void revealFaceDownCards();
 }
