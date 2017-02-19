@@ -7,11 +7,11 @@ A Java program to play Blackjack
 3. In Terminal, navigate to **src**
 4. Compile the program:
     ```
-    $ javac project/BlackjackGame.java
+    $ javac game/BlackjackGame.java
     ```
 5. Run the program:
     ```
-    $ java project/BlackjackGame
+    $ java game/BlackjackGame
     ```
 
 ## The program interaction is as follows:
