@@ -1,8 +1,9 @@
 package game;
 
+import java.text.DecimalFormat;
 import java.util.Scanner;
 
-public interface InputHelper {
+public interface Helper {
 	public static Scanner kb = new Scanner(System.in);
 	/**
 	 * helper method to ensure input is int
@@ -45,4 +46,8 @@ public interface InputHelper {
 		return kb.next();
 	}
 
+	static String toMoney(double amount) {
+		return new DecimalFormat("#.00").format(amount);
+
+	}
 }

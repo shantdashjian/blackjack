@@ -5,6 +5,8 @@ import cards.DeckImpl;
 import cards.Facing;
 
 public class BlackjackGame {
+	public static final int LONG_DELAY = 3000;
+	public static final int SHORT_DELAY = 1;
 	private Person dealer;
 	private Person player;
 	private Deck deck;
@@ -79,7 +81,7 @@ public class BlackjackGame {
 		dealer = new Dealer("Dealer", 1000000);
 		player = new Player("Player", 1000);
 		deck = new DeckImpl();
-		minBet = 50;
+		minBet = 50.00;
 	}
 
 	public BlackjackGame(String[] args) {
@@ -93,29 +95,65 @@ public class BlackjackGame {
 
 	public void start() {
 		welcomePlayer();
-		playerPlacesWager();
-		dealPlayerAndDealer();
-		endGameIfEitherGotBlackjack();
-		playerTurn();
-		dealerTurn();
-		compareHandsAndDeclareResult();
+		String playAgain;
+		do {
+			playAgain = "N";
+			startWithEmptyHands();
+
+			playerPlacesWager();
+			dealPlayerAndDealer();
+			while (true) {
+				if (oneOrBothGotBlackJack()) {
+					break;
+				}
+				if (playerTurnThenBust()) {
+					break;
+				}
+				if (dealerTurnThenBust()) {
+					break;
+				}
+				compareHandsAndDeclareResult();
+				break;
+
+			}
+			displayWallet();
+			if (player.getWallet() >= minBet) {
+				playAgain = Helper.getString("Play again (Y/N)? ").toUpperCase();
+			} else {
+				System.out.println("You do not have sufficient funds to continue playing."
+						+ " The house always wins!!");
+			}
+
+		} while (playAgain.equals("Y"));
+		System.out.println("Cheers!");
 	}
+
 
 	public void welcomePlayer() {
 		System.out.println("***************************");
 		System.out.println("* Welcome to SD Blackjack *");
 		System.out.println("***************************");
 	}
+	public void startWithEmptyHands(){
+		player.setHand(new HandImpl());
+		dealer.setHand(new HandImpl());
+	}
 
 	public void playerPlacesWager() {
 		do {
-			((Player) player).placeWager(InputHelper
-					.getDouble("Minimum bet is $" + minBet + ". How much would you like to bet (0 to exit)? "));
+			if (!((Player) player).placeWager(Helper.getDouble(
+					"Minimum bet is $" + Helper.toMoney(minBet) +
+					".\nHow much would you like to bet (0 to exit)? ")) ){
+				System.out.println("You have a total of $" + Helper.toMoney(player.getWallet())
+					+ " in your wallet. Place a wager within your funds. ");
+				continue;
+			};
+
 			if (((Player) player).getWager() <= 0) {
 				System.out.println("Please visit us again!");
 				System.exit(0);
 			}
-		} while (((Player) player).getWager() < minBet);
+		} while (((Player) player).getWager() < minBet );
 	}
 
 	public void dealPlayerAndDealer() {
@@ -136,13 +174,23 @@ public class BlackjackGame {
 	public void displayTable() {
 		try {
 			System.out.println(dealer.getHand().display(dealer.getName()));
-			Thread.sleep(100);
+			Thread.sleep(SHORT_DELAY);
 			System.out.println(player.getHand().display(player.getName()));
-			Thread.sleep(1000);
+			displayWalletAndWager();
+			System.out.println();
+			Thread.sleep(LONG_DELAY);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 
+	}
+
+	public void displayWalletAndWager() {
+		System.out.println("Wallet= $" + Helper.toMoney(player.getWallet()) + "   Wager= $"
+				+ Helper.toMoney(((Player) player).getWager()));
+	}
+	public void displayWallet() {
+		System.out.println("Wallet= $" + Helper.toMoney(player.getWallet()));
 	}
 
 	public void deal(Person person, Facing facing) {
@@ -150,21 +198,14 @@ public class BlackjackGame {
 
 	}
 
-	public void endGameIfEitherGotBlackjack() {
-		if (oneOrBothGotBlackJack()) {
-			System.exit(0);
-		}
-	}
-
 	public boolean oneOrBothGotBlackJack() {
 		if (player.blackjack() && !dealer.blackjack()) {
 			System.out.println("BLACKJACK!!!! You win!");
-			player.setWallet(player.getWallet() + ((Player) player).getWager() * 1.5);
+			player.setWallet(player.getWallet() + ((Player) player).getWager() * 2.5);
 			return true;
 		}
 		if (dealer.blackjack() && !player.blackjack()) {
 			System.out.println("The house wins!");
-			player.setWallet(player.getWallet() - ((Player) player).getWager());
 			dealer.setWallet(dealer.getWallet() + ((Player) player).getWager());
 			return true;
 		}
@@ -176,11 +217,11 @@ public class BlackjackGame {
 		return false;
 	}
 
-	public void playerTurn() {
+	public boolean playerTurnThenBust() {
 		String playerDecision;
 		do {
 			do {
-				playerDecision = (InputHelper.getString("Hit or Stand? (Enter H or S) ")).toUpperCase();
+				playerDecision = (Helper.getString("Hit or Stand? (Enter H or S) ")).toUpperCase();
 			} while (!playerDecision.equals("H") && !playerDecision.equals("S"));
 
 			if (playerDecision.equals("H")) {
@@ -188,46 +229,63 @@ public class BlackjackGame {
 				displayTable();
 				if (player.bust()) {
 					System.out.println("BUST!! Good luck next time!");
-					System.exit(0);
+					dealer.setWallet(dealer.getWallet() + ((Player) player).getWager());
+					return true;
 				}
 			}
 
-		} while (!playerDecision.equals("S"));
+		} while (!playerDecision.equals("S") && player.getHand().getTotal() < 21);
+		return false;
 	}
 
-	public void dealerTurn() {
-		System.out.println("Dealer's turn");
-		dealer.getHand().revealFaceDownCards();
-		displayTable();
-		String dealerAction = "";
-		do {
+	public boolean dealerTurnThenBust() {
+		try {
+			System.out.println("Dealer's turn");
+			System.out.println("*************");
+			Thread.sleep(LONG_DELAY);
+
+			dealer.getHand().revealFaceDownCards();
+			displayTable();
+			String dealerAction = "";
 			do {
-				dealerAction = ((Dealer) dealer).getDealerAction();
-			} while (!dealerAction.equals("H") && !dealerAction.equals("S"));
+				do {
+					dealerAction = ((Dealer) dealer).getDealerAction();
+				} while (!dealerAction.equals("H") && !dealerAction.equals("S"));
 
-			if (dealerAction.equals("H")) {
-				deal(dealer, Facing.UP);
-				displayTable();
-				if (dealer.bust()) {
-					System.out.println("Dealer busts! You win");
-					System.exit(0);
+				if (dealerAction.equals("H")) {
+					deal(dealer, Facing.UP);
+					displayTable();
+					if (dealer.bust()) {
+						System.out.println("Dealer busts! You WIN!!");
+						player.setWallet(player.getWallet() + ((Player) player).getWager() * 2);
+						return true;
+					}
 				}
-			}
 
-		} while (!dealerAction.equals("S"));
+			} while (!dealerAction.equals("S"));
+			return false;
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+
+		}
 
 	}
 
 	private void compareHandsAndDeclareResult() {
 		switch (player.getHand().compareTo(dealer.getHand())) {
 		case 1:
-			System.out.println("You win!!");
+			System.out.println("You WIN!!");
+			player.setWallet(player.getWallet() + ((Player) player).getWager() * 2);
 			break;
 		case -1:
-			System.out.println("The house wins!!");
+			System.out.println("The house wins!");
+			dealer.setWallet(dealer.getWallet() + ((Player) player).getWager());
 			break;
 		case 0:
-			System.out.println("It's a tie!!");
+			System.out.println("It's a TIE!");
+			player.setWallet(player.getWallet() + ((Player) player).getWager());
 			break;
 		default:
 			break;
