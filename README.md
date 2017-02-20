@@ -1,6 +1,13 @@
 # blackjack
 A Java program to play a Blackjack game
+
+## In this document:
 [How to Download, Compile and Run the Program](#how-to-download-compile-and-run-the-program)
+[How to Play](#how-to-play)
+[Class Structure Overview](#class-structure-overview)
+[Unit Test Suite](#unit-test-suite)
+
+
 ## How to Download, Compile and Run the Program
 1. Download **blackjack** from *GitHub*. This will download the .zip file
 2. Unzip the file. This creates a folder **backjack-master**, inside of which there are a number of .java files under the [src folder](src)
@@ -21,7 +28,6 @@ A Java program to play a Blackjack game
     $ java game/BlackjackGame 100 2000
     ```
 
-[How to Play](#how-to-play)
 ## How to Play
 1. User is welcomed to SD Blackjack
 2. User is asked to place a wager equal to or more than the minimum bet
@@ -37,7 +43,6 @@ A Java program to play a Blackjack game
 12. If hands totals are equal, it's a tie
 13. Player is offered to play again as long as she has enough money in her wallet for the minimum bet
 
-[Class Structure Overview](#class-structure-overview)
 ## Class Structure Overview
 - The **BlackjackGame** class is the game driver. Its main() method instantiates an object of type BlackjackGame and calls its play() method to start the game
 - The **Person** interface declares methods for persons participating in the game
@@ -51,7 +56,6 @@ A Java program to play a Blackjack game
 - **Rank**, **Suit**, and **Facing** are enumerators that provide values for each playing card
 - The **CardGraphics** and **Helper** interfaces provide static fields and methods for card display and game input/output functionality, respectively
 
-[Unit Test Suite](#unit-test-suite)
 ## Unit Test Suite
 The core functionality of the project has been developed using TDD. All JUnit tests are included in the [test folder](test)and they cover the core functionality of the following classes:
 - HandImpl
