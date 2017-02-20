@@ -57,7 +57,7 @@ A Java program to play a Blackjack game
 - The **CardGraphics** and **Helper** interfaces provide static fields and methods for card display and game input/output functionality, respectively
 
 ## Unit Test Suite
-The core functionality of the project has been developed using TDD. All JUnit tests are included in the [test folder](test)and they cover the core functionality of the following classes:
+The core functionality of the project has been developed using TDD. All JUnit tests are included in the [test folder](test) and they cover the core functionality of the following classes:
 - HandImpl
 - DeckImpl
 - Player
