@@ -1,9 +1,9 @@
 # blackjack
 A Java program to play a Blackjack game
-
-## To download and compile the program:
+[How to Download, Compile and Run the Program](#how-to-download-compile-and-run-the-program)
+## How to Download, Compile and Run the Program
 1. Download **blackjack** from *GitHub*. This will download the .zip file
-2. Unzip the file. This creates a folder **backjack-master**, inside of which there are a number of .java files under **src/game**
+2. Unzip the file. This creates a folder **backjack-master**, inside of which there are a number of .java files under the [src folder](src)
 3. In Terminal, navigate to **src**
 4. Compile the program:
 
@@ -21,8 +21,8 @@ A Java program to play a Blackjack game
     $ java game/BlackjackGame 100 2000
     ```
 
-
-## The program interaction is as follows:
+[How to Play](#how-to-play)
+## How to Play
 1. User is welcomed to SD Blackjack
 2. User is asked to place a wager equal to or more than the minimum bet
 3. Cards are dealt for both player and dealer
@@ -37,8 +37,8 @@ A Java program to play a Blackjack game
 12. If hands totals are equal, it's a tie
 13. Player is offered to play again as long as she has enough money in her wallet for the minimum bet
 
-
-## Class Structure Overview:
+[Class Structure Overview](#class-structure-overview)
+## Class Structure Overview
 - The **BlackjackGame** class is the game driver. Its main() method instantiates an object of type BlackjackGame and calls its play() method to start the game
 - The **Person** interface declares methods for persons participating in the game
 - The **PersonImpl** abstract class implements the **Person** interface
@@ -50,3 +50,12 @@ A Java program to play a Blackjack game
 - The **CardImpl** implements the **Card** interface. It has a rank, suit, value, and a facing field 
 - **Rank**, **Suit**, and **Facing** are enumerators that provide values for each playing card
 - The **CardGraphics** and **Helper** interfaces provide static fields and methods for card display and game input/output functionality, respectively
+
+[Unit Test Suite](#junit)
+## Unit Test Suite
+The core functionality of the project has been developed using TDD. All JUnit tests are included in the [test folder](test)and they cover the core functionality of the following classes:
+- HandImpl
+- DeckImpl
+- Player
+- Dealer
+- BlackjackGame
