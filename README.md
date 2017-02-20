@@ -1,7 +1,7 @@
 # blackjack
 A Java program to play a Blackjack game
 
-## In this document:
+## In This Document:
 1. [How to Download, Compile, and Run the Program](#how-to-download-compile-and-run-the-program)
 2. [How to Play](#how-to-play)
 3. [Class Structure Overview](#class-structure-overview)
