@@ -2,13 +2,13 @@
 A Java program to play a Blackjack game
 
 ## In this document:
-1. [How to Download, Compile and Run the Program](#how-to-download-compile-and-run-the-program)
+1. [How to Download, Compile, and Run the Program](#how-to-download-compile-and-run-the-program)
 2. [How to Play](#how-to-play)
 3. [Class Structure Overview](#class-structure-overview)
 4. [Unit Test Suite](#unit-test-suite)
 
 
-## How to Download, Compile and Run the Program
+## How to Download, Compile, and Run the Program
 1. Download **blackjack** from *GitHub*. This will download the .zip file
 2. Unzip the file. This creates a folder **backjack-master**, inside of which there are a number of .java files under the [src folder](src)
 3. In Terminal, navigate to **src**
