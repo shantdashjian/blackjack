@@ -1,6 +1,18 @@
 package cards;
-
+/**
+ * <h1>CardGraphics</h1>
+ * <br>
+ * This interface provides card display-related constants and methods
+ * <br>
+ * @author Shaun Dashjian
+ * @version 1.0
+ * @year 2017
+ */
 public interface CardGraphics {
+	/**
+	 * Those are the templates for each rank in a deck
+	 * X in the template will be replaced by with the specific suit symbol
+	 */
 	public static String[][] cardTemplates = {
 			   {" --------- ",
 				"| 2       |",
@@ -157,8 +169,12 @@ public interface CardGraphics {
 				"|*********|",
 				" --------- "}
 			};
-
-	public static String toASCII(Suit suit) {
+	/**
+	 * returns the unicode for each suit
+	 * @param suit
+	 * @return unicode for the card suit symbol
+	 */
+	public static String toUnicode(Suit suit) {
 		String suitSymbol = "";
 		switch (suit) {
 		case SPADES:
@@ -171,7 +187,7 @@ public interface CardGraphics {
 			suitSymbol = "\u2663";
 			break;
 		case HEARTS:
-			suitSymbol = "\u2664";
+			suitSymbol = "\u2665";
 			break;
 		}
 		return suitSymbol;

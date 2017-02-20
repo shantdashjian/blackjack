@@ -38,7 +38,11 @@ public class CardImpl implements Card {
 	public void setValue(int value) {
 		this.value = value;
 	}
-
+	/**
+	 * argument constructor
+	 * @param rank
+	 * @param suit
+	 */
 	public CardImpl(Rank rank, Suit suit) {
 		this.rank = rank;
 		this.suit = suit;
@@ -96,28 +100,39 @@ public class CardImpl implements Card {
 		}
 		return true;
 	}
-
+	/**
+	 * returns true if the card was facing UP
+	 */
 	@Override
 	public boolean faceUp() {
 		return (facing == facing.UP);
 	}
-
+	/**
+	 * returns true if the card was facing DOWN
+	 */
 	@Override
 	public boolean faceDown() {
 		return (facing == facing.DOWN);
 	}
-
+	/**
+	 * sets the face of the card UP or DOWN
+	 */
 	@Override
 	public void setFace(Facing facing) {
 		this.facing = facing;
 
 	}
-
+	/**
+	 * returns true if the card is an Ace
+	 * @return whether the card was an Ace (true) or not (false)
+	 */
 	@Override
 	public boolean isAnAce() {
 		return getRank() == Rank.ACE;
 	}
-
+	/**
+	 * turns the card face up by calling the setFace() method with Facing.UP
+	 */
 	@Override
 	public void reveal() {
 		setFace(Facing.UP);

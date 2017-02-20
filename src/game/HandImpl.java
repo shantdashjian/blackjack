@@ -48,6 +48,10 @@ public class HandImpl implements Hand {
 		}
 	}
 
+	/**
+	 * returns true if there is an Ace counted as 11
+	 * @return ace counts as 11
+	 */
 	public boolean softHand() {
 		for (Card card : cards) {
 			if (card.isAnAce() && card.getValue() == 11) {
@@ -68,7 +72,7 @@ public class HandImpl implements Hand {
 				if (card.faceUp()) {
 
 					String rowString = CardGraphics.cardTemplates[card.getRank().ordinal()][row].replaceAll("X",
-							CardGraphics.toASCII(card.getSuit()));
+							CardGraphics.toUnicode(card.getSuit()));
 
 					handStringBuilder.append(rowString);
 

@@ -7,24 +7,36 @@ public class Dealer extends PersonImpl {
 		// TODO Auto-generated constructor stub
 	}
 
+	/**
+	 * returns the dealer's action (hit/stand) depending on their hand
+	 *
+	 * @return dealer action
+	 */
 	public String getDealerAction() {
 		String dealerAction = "";
-		if (mustHit()){
+		if (mustHit()) {
 			dealerAction = "H";
-		} else if (mustStand()){
+		} else if (mustStand()) {
 			dealerAction = "S";
 		}
 		return dealerAction;
 	}
+	/**
+	 * returns true if the dealer must hit (i.e. hand total <= 16)
+	 * @return must hit
+	 */
 	public boolean mustHit() {
-		if (getHand().getTotal() <= 16){
+		if (getHand().getTotal() <= 16) {
 			return true;
 		}
 		return false;
 	}
-
+	/**
+	 * returns true if the dealer must stand (ie. hand total >= 17)
+	 * @return must stand
+	 */
 	public boolean mustStand() {
-		if (getHand().getTotal() >= 17 && getHand().getTotal() <= 21){
+		if (getHand().getTotal() >= 17 && getHand().getTotal() <= 21) {
 			return true;
 		}
 		return false;

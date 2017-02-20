@@ -79,18 +79,25 @@ public abstract class PersonImpl implements Person {
 	public void setHand(Hand hand) {
 		this.hand = hand;
 	}
-
+	/**
+	 * deals a card to the person
+	 * @param card to be dealt
+	 */
 	@Override
 	public void hit(Card card) {
 		hand.addCardAndChangeHandtoHardIfNeeded(card);
 	}
-
+	/**
+	 * does nothing, which means the person is standing, not dealt a card
+	 */
 	@Override
 	public void stand() {
-		// TODO Auto-generated method stub
 
 	}
 
+	/**
+	 * returns true if the hand has a blackjack (Ace + a 10-value card)
+	 */
 	@Override
 	public boolean blackjack() {
 		if (hand.getTotal() == 21) {
@@ -98,7 +105,9 @@ public abstract class PersonImpl implements Person {
 		}
 		return false;
 	}
-
+	/**
+	 * returns true if the hand totals over 21
+	 */
 	@Override
 	public boolean bust() {
 		if (hand.getTotal() > 21) {

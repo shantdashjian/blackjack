@@ -2,9 +2,18 @@ package game;
 
 import java.text.DecimalFormat;
 import java.util.Scanner;
-
+/**
+ * <h1>Helper</h1>
+ * <br>
+ * This interface provides helper methods
+ *
+ * @author Shaun Dashjian
+ * @version 1.0
+ * @year 2017
+ */
 public interface Helper {
 	public static Scanner kb = new Scanner(System.in);
+
 	/**
 	 * helper method to ensure input is int
 	 *
@@ -46,8 +55,14 @@ public interface Helper {
 		return kb.next();
 	}
 
+	/**
+	 * helper method to return a number in monetary format "#.00"
+	 * @param amount
+	 * @return amount in monetary format
+	 */
 	static String toMoney(double amount) {
 		return new DecimalFormat("#.00").format(amount);
 
 	}
+
 }
