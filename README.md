@@ -2,10 +2,10 @@
 A Java program to play a Blackjack game
 
 ## In this document:
-[How to Download, Compile and Run the Program](#how-to-download-compile-and-run-the-program)
-[How to Play](#how-to-play)
-[Class Structure Overview](#class-structure-overview)
-[Unit Test Suite](#unit-test-suite)
+[1. How to Download, Compile and Run the Program](#how-to-download-compile-and-run-the-program)
+[2. How to Play](#how-to-play)
+[3. Class Structure Overview](#class-structure-overview)
+[4. Unit Test Suite](#unit-test-suite)
 
 
 ## How to Download, Compile and Run the Program
