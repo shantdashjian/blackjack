@@ -6,14 +6,17 @@ A Java program to play Blackjack
 2. Unzip the file. This creates a folder **backjack-master**, inside of which there are a number of .java files under **src/project**
 3. In Terminal, navigate to **src**
 4. Compile the program:
+
     ```
     $ javac game/BlackjackGame.java
     ```
 5. Run the program with default minumum bet = $50.00 and default player wallet = $1000.00:
+
     ```
     $ java game/BlackjackGame
     ```
 5. Run the program with two arguments for minumum bet and player wallet amount:
+
     ```
     $ java game/BlackjackGame 100 2000
     ```
